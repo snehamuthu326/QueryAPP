@@ -1,6 +1,6 @@
 // import 'dart:convert';
 import 'dart:io';
-//import 'package:image_cropper/image_cropper.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:frontendmcet/getrequest.dart';
 import 'package:http/http.dart' as http;
@@ -53,10 +53,9 @@ Future<void> _pickImage() async {
   );
 }
 
-/*Future<void> _cropImage(File imageFile) async {
+Future<void> _cropImage(File imageFile) async {
   final cropped = await ImageCropper().cropImage(
     sourcePath: imageFile.path,
-    aspectRatioPresets: [CropAspectRatioPreset.square],
     uiSettings: [
       AndroidUiSettings(
         toolbarTitle: 'Crop Image',
@@ -64,15 +63,20 @@ Future<void> _pickImage() async {
         toolbarWidgetColor: Colors.white,
         initAspectRatio: CropAspectRatioPreset.original,
         lockAspectRatio: false,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+        ],
       ),
     ],
   );
+
   if (cropped != null) {
     setState(() {
       _selectedImage = File(cropped.path);
     });
   }
-}*/
+}
+
   
 
   void _submitRequest() async {
