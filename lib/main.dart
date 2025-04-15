@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Query APP',
       theme: ThemeData(hintColor:  Color.fromARGB(255, 255, 125, 25)),
       home: const Example(),
     );
@@ -85,22 +85,22 @@ class _ExampleState extends State<Example> {
   }
   */
 
-
-  /*void login(BuildContext context) {
+/*
+  void login(BuildContext context) {
     String username = _usernameController.text;
     String password = _passwordController.text;
     if(username == 'admin' && password == '123'){
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const PdescribeScreen()),  // const ProbDesc()),
+        MaterialPageRoute(builder: (context) => const ProbDesc()),  // const ProbDesc()),
       );
     }else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid Credentials!")),
       );
     }
-  }*/
-
+  }
+*/
 Future<void> loginUser(String uname, String passkey) async {
   final url = Uri.parse('http://10.0.2.2:8080/api/user/login'); 
   try {
@@ -116,7 +116,7 @@ Future<void> loginUser(String uname, String passkey) async {
     );
 
     if (response.statusCode == 200) {
-      print('✅ ${response.body}'); // Logged In Successfully
+      print('✅ ${response.body}'); 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("${response.body}")),
       );
@@ -125,7 +125,7 @@ Future<void> loginUser(String uname, String passkey) async {
         MaterialPageRoute(builder: (context) => const ProbDesc()),
       );
     } else if (response.statusCode == 401) {
-      print('❌ Unauthorized: ${response.body}'); // Wrong credentials
+      print('❌ Unauthorized: ${response.body}'); 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Wrong Credentials!")),
       );
@@ -148,11 +148,9 @@ Future<void> loginUser(String uname, String passkey) async {
     if (_formKey.currentState!.validate()) {
       String username = _usernameController.text;
       String password = _passwordController.text;
-      //ScaffoldMessenger.of(
-      //  context,
-      //).showSnackBar(const SnackBar(content: Text("Wait for a While!")));
       print("Username: $username, Password: $password");
       await loginUser(username, password); 
+      //login(context);
     }
   }
 

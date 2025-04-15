@@ -60,7 +60,7 @@ class _GetRequestState extends State<GetRequest> {
                           DataColumn(label: Text('ID')),
                           DataColumn(label: Text('Category')),
                           DataColumn(label: Text('Description')),
-                          DataColumn(label: Text('Image')),
+                          // DataColumn(label: Text('Image')),
                           DataColumn(label: Text('Date Created')),
                           DataColumn(label: Text('Status')),
                         ],
@@ -75,13 +75,13 @@ class _GetRequestState extends State<GetRequest> {
                                         Text(item['description'] ?? 'N/A'),
                                       ),
                                       //DataCell(Text(item['imagePath'] ?? '')),
-                                      DataCell(
+                                      /*DataCell(
                                         item['imagePath'] != null && item['imagePath'].toString().isNotEmpty
                                             ? Image.network( item['imagePath'], width: 80, height: 80, fit: BoxFit.cover,
                                               errorBuilder:( context, error, stackTrace, ) => Icon(Icons.broken_image),
                                             )
                                             : Icon(Icons.image_not_supported),
-                                      ),
+                                      ),*/
                                       DataCell(
                                         Text(item['uploadTime'] ?? 'N/A'),
                                       ),
