@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontendmcet/admin.dart';
+import 'package:frontendmcet/hod.dart';
 //import 'package:srm/pdescribe.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontendmcet/probdesc.dart'; 
@@ -16,19 +18,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Query APP',
       theme: ThemeData(hintColor:  Color.fromARGB(255, 255, 125, 25)),
-      home: const Example(),
+      home: const Login(),
     );
   }
 }
 
-class Example extends StatefulWidget {
-  const Example({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Example> createState() => _ExampleState();
+  State<Login> createState() => _LoginState();
 }
 
-class _ExampleState extends State<Example> {
+class _LoginState extends State<Login> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -115,15 +117,29 @@ Future<void> loginUser(String uname, String passkey) async {
       }),
     );
 
+    final data = jsonDecode(response.body);
     if (response.statusCode == 200) {
       print('✅ ${response.body}'); 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("${response.body}")),
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProbDesc()),
-      );
+      if(data['role']== "F"){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ProbDesc()),
+        );
+      } else if(data['role']== "H"){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const hod()),
+        );
+      } else if(data['role']== "A"){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Admin()),
+        );
+      }
+      
     } else if (response.statusCode == 401) {
       print('❌ Unauthorized: ${response.body}'); 
       ScaffoldMessenger.of(context).showSnackBar(

@@ -53,45 +53,46 @@ class _GetRequestState extends State<GetRequest> {
                 child: SingleChildScrollView(
                   child: Container(
                     constraints: BoxConstraints(minWidth: 800),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: DataTable(
-                        columns: [
-                          DataColumn(label: Text('ID')),
-                          DataColumn(label: Text('Category')),
-                          DataColumn(label: Text('Description')),
-                          // DataColumn(label: Text('Image')),
-                          DataColumn(label: Text('Date Created')),
-                          DataColumn(label: Text('Status')),
-                        ],
-                        rows:
-                            _data
-                                .map(
-                                  (item) => DataRow(
-                                    cells: [
-                                      DataCell(Text(item['pid'].toString())),
-                                      DataCell(Text(item['category'] ?? 'N/A')),
-                                      DataCell(
-                                        Text(item['description'] ?? 'N/A'),
-                                      ),
-                                      //DataCell(Text(item['imagePath'] ?? '')),
-                                      /*DataCell(
-                                        item['imagePath'] != null && item['imagePath'].toString().isNotEmpty
-                                            ? Image.network( item['imagePath'], width: 80, height: 80, fit: BoxFit.cover,
-                                              errorBuilder:( context, error, stackTrace, ) => Icon(Icons.broken_image),
-                                            )
-                                            : Icon(Icons.image_not_supported),
-                                      ),*/
-                                      DataCell(
-                                        Text(item['uploadTime'] ?? 'N/A'),
-                                      ),
-                                      DataCell(
-                                        Text(item['fprocess'] ?? 'Progress'),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                                .toList(),
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: DataTable(
+                          columns: [
+                            DataColumn(label: Text('ID')),
+                            DataColumn(label: Text('Category')),
+                            DataColumn(label: Text('Description')),
+                            // DataColumn(label: Text('Image')),
+                            DataColumn(label: Text('Date Created')),
+                            DataColumn(label: Text('Status')),
+                          ],
+                          rows:
+                              _data
+                                  .map(
+                                    (item) => DataRow(
+                                      cells: [
+                                        DataCell(Text(item['pid'].toString())),
+                                        DataCell(Text(item['category'] ?? 'N/A')),
+                                        DataCell(
+                                          Text(item['description'] ?? 'N/A'),
+                                        ),
+                                        //DataCell(Text(item['imagePath'] ?? '')),
+                                        /*DataCell(
+                                          item['imagePath'] != null && item['imagePath'].toString().isNotEmpty
+                                              ? Image.network( item['imagePath'], width: 80, height: 80, fit: BoxFit.cover,
+                                                errorBuilder:( context, error, stackTrace, ) => Icon(Icons.broken_image),
+                                              )
+                                              : Icon(Icons.image_not_supported),
+                                        ),*/
+                                        DataCell(
+                                          Text(item['uploadTime'] ?? 'N/A'),
+                                        ),
+                                        DataCell(
+                                          Text(item['fprocess'] ?? 'Progress'),
+                                        ),
+                                      ],
+                                    ),
+                                  ).toList(),
+                        ),
                       ),
                     ),
                   ),
