@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class GetRequest extends StatefulWidget {
+  const GetRequest({super.key});
+
   @override
   _GetRequestState createState() => _GetRequestState();
 }

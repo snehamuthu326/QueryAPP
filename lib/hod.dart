@@ -2,14 +2,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class hod extends StatefulWidget {
-  const hod({super.key});
+class HodScreen extends StatefulWidget {
+  final String name; 
+  const HodScreen({super.key, required this.name});
 
   @override
-  State<hod> createState() => _hodState();
+  State<HodScreen> createState() => _HodState();
 }
 
-class _hodState extends State<hod> {
+class _HodState extends State<HodScreen> {
   List<Map<String, dynamic>> _data = [];
   Map<int, String?> selectedOptions = {};
   Map<int, TextEditingController> commentControllers = {};
@@ -61,55 +62,76 @@ class _hodState extends State<hod> {
     return Scaffold(
       appBar: AppBar(title: const Text('HOD')),
       body: SingleChildScrollView(
-        child: DataTable(
-          columns: const [
-            DataColumn(label: Text('Problem ID')),
-            DataColumn(label: Text('Description')),
-            DataColumn(label: Text('Action')),
-            DataColumn(label: Text('Comment')),
-            DataColumn(label: Text('Submit')),
-          ],
-          rows: _data.map((row) {
-            int pid = row['pid'];
-            return DataRow(cells: [
-              DataCell(Text(pid.toString())),
-              DataCell(Text(row['description'] ?? '')),
-              DataCell(Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Radio<String>(
-                    value: 'recommend',
-                    groupValue: selectedOptions[pid],
-                    onChanged: (value) {
-                      setState(() {
-                        selectedOptions[pid] = value;
-                      });
-                    },
+                  Text(
+                    'Name: ${widget.name}', 
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const Text('Recommend'),
-                  Radio<String>(
-                    value: 'not_recommend',
-                    groupValue: selectedOptions[pid],
-                    onChanged: (value) {
-                      setState(() {
-                        selectedOptions[pid] = value;
-                      });
-                    },
+                  Text(
+                    'Total Problems: ${_data.length}',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const Text('Not Recommend'),
                 ],
-              )),
-              DataCell(TextField(
-                controller: commentControllers[pid],
-                decoration: const InputDecoration(hintText: 'Enter comment'),
-              )),
-              DataCell(
-                ElevatedButton(
-                  onPressed: () => submitRecommendation(pid),
-                  child: const Text('Submit'),
-                ),
               ),
-            ]);
-          }).toList(),
+            ),
+            DataTable(
+              columns: const [
+                DataColumn(label: Text('Problem ID')),
+                DataColumn(label: Text('Description')),
+                DataColumn(label: Text('Action')),
+                DataColumn(label: Text('Comment')),
+                DataColumn(label: Text('Submit')),
+              ],
+              rows: _data.map((row) {
+                int pid = row['pid'];
+                return DataRow(cells: [
+                  DataCell(Text(pid.toString())),
+                  DataCell(Text(row['description'] ?? '')),
+                  DataCell(Row(
+                    children: [
+                      Radio<String>(
+                        value: 'recommend',
+                        groupValue: selectedOptions[pid],
+                        onChanged: (value) {
+                          setState(() {
+                            selectedOptions[pid] = value;
+                          });
+                        },
+                      ),
+                      const Text('Recommend'),
+                      Radio<String>(
+                        value: 'not_recommend',
+                        groupValue: selectedOptions[pid],
+                        onChanged: (value) {
+                          setState(() {
+                            selectedOptions[pid] = value;
+                          });
+                        },
+                      ),
+                      const Text('Not Recommend'),
+                    ],
+                  )),
+                  DataCell(TextField(
+                    controller: commentControllers[pid],
+                    decoration: const InputDecoration(hintText: 'Enter comment'),
+                  )),
+                  DataCell(
+                    ElevatedButton(
+                      onPressed: () => submitRecommendation(pid),
+                      child: const Text('Submit'),
+                    ),
+                  ),
+                ]);
+              }).toList(),
+            ),
+          ],
         ),
       ),
     );

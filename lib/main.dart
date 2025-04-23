@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontendmcet/admin.dart';
 import 'package:frontendmcet/hod.dart';
-//import 'package:srm/pdescribe.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontendmcet/probdesc.dart'; 
 
@@ -119,9 +118,10 @@ Future<void> loginUser(String uname, String passkey) async {
 
     final data = jsonDecode(response.body);
     if (response.statusCode == 200) {
+      String userName = data['name'];
       print('✅ ${response.body}'); 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("${response.body}")),
+        SnackBar(content: Text(data),),
       );
       if(data['role']== "F"){
         Navigator.push(
@@ -131,7 +131,7 @@ Future<void> loginUser(String uname, String passkey) async {
       } else if(data['role']== "H"){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const hod()),
+          MaterialPageRoute(builder: (context) => HodScreen(name: userName,)),
         );
       } else if(data['role']== "A"){
         Navigator.push(
