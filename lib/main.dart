@@ -103,7 +103,8 @@ class _LoginState extends State<Login> {
   }
 */
 Future<void> loginUser(String uname, String passkey) async {
-  final url = Uri.parse('http://10.0.2.2:8080/api/user/login'); 
+  //final url = Uri.parse('http://10.0.2.2:8080/api/user/login'); 
+  final url = Uri.parse('http://192.168.133.21:8080/api/user/login'); 
   try {
     final response = await http.post(
       url,
@@ -115,7 +116,7 @@ Future<void> loginUser(String uname, String passkey) async {
         'passkey': passkey,
       }),
     );
-
+    print('👍Response status: ${response.body}');
     final data = jsonDecode(response.body);
     if (response.statusCode == 200) {
       String userName = data['name'];

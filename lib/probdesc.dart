@@ -93,7 +93,8 @@ Future<void> _pickImage() async {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://10.0.2.2:8080/problem/add'),
+        //Uri.parse('http://10.0.2.2:8080/problem/add'),
+        Uri.parse('http://192.168.133.21:8080/problem/add'),
       );
       request.fields['category'] = _selectedCategory!;
       request.fields['description'] = _textController.text;

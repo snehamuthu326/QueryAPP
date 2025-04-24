@@ -22,7 +22,8 @@ class _GetRequestState extends State<GetRequest> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/problem/all'),
+        //Uri.parse('http://10.0.2.2:8080/problem/all'),
+        Uri.parse('http://192.168.133.21:8080/problem/all'),
       );
       if (response.statusCode == 200) {
         setState(() {

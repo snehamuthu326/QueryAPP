@@ -22,7 +22,8 @@ class _HodState extends State<HodScreen> {
   }
 
   Future<void> fetchDataFromDatabase() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:8080/problem/all'));
+    //final response = await http.get(Uri.parse('http://10.0.2.2:8080/problem/all'));
+    final response = await http.get(Uri.parse('http://192.168.133.21:8080/problem/all'));
     if (response.statusCode == 200) {
       final List<dynamic> raw = jsonDecode(response.body);
       setState(() {
@@ -39,7 +40,8 @@ class _HodState extends State<HodScreen> {
     final status = selectedOptions[pid] ?? '';
 
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/problem/recommend'),
+      //Uri.parse('http://10.0.2.2:8080/problem/recommend'),
+      Uri.parse('http://192.168.133.21:8080/problem/recommend'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'pid': pid,
